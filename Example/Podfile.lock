@@ -1,5 +1,5 @@
 PODS:
-  - BSGridCollectionViewLayout (1.1.0)
+  - BSGridCollectionViewLayout (1.2.0)
 
 DEPENDENCIES:
   - BSGridCollectionViewLayout (from `../`)
@@ -9,6 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSGridCollectionViewLayout: 5fd85b2d944426e5c1ed824ae46eb8da44606cf8
+  BSGridCollectionViewLayout: 192eb79045fe996f40f744da4e37f6e90c6d0db2
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: b1dddde9459cca96e8baf616c229b9561a1c9a3a
+
+COCOAPODS: 1.2.1

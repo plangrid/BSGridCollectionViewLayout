@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BSGridCollectionViewLayout"
-  s.version          = "1.1.1"
+  s.version          = "1.2.0"
   s.summary          = "Simple grid collection view layout."
   s.description      = <<-DESC
   A simple grid collection view layout. Displays multiple sections as one continuous grid without any section breaks.
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Joakim Gyllstrom" => "joakim@backslashed.se" }
   s.source           = { :git => "https://github.com/mikaoj/BSGridCollectionViewLayout.git", :tag => s.version.to_s }
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '9.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'

@@ -65,9 +65,9 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
 
     var items = 0
     var rows = 0
-    var _itemSize = CGSizeZero
+    var _itemSize: CGSize = .zero
 
-    public override func prepareLayout() {
+    public override func prepare() {
         // Set total number of items and rows
         items = estimatedNumberOfItems()
         rows = items / itemsPerRow + ((items % itemsPerRow > 0) ? 1 : 0)
@@ -79,29 +79,28 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
     /**
      See UICollectionViewLayout documentation
      */
-    public override func collectionViewContentSize() -> CGSize {
-        guard let collectionView = collectionView where rows > 0 else {
-            return CGSizeZero
-        }
-
-        let height = estimatedRowHeight() * CGFloat(rows)
-        return CGSize(width: collectionView.bounds.width, height: height)
+    public override var collectionViewContentSize: CGSize {
+//        guard
+//            let collectionView = self.collectionView, self.rows > 0 else { return .zero }
+//        let height = estimatedRowHeight() * CGFloat(rows)
+//        return CGSize(width: collectionView.bounds.width, height: height)
+        fatalError()
     }
 
     /**
      See UICollectionViewLayout documentation
      */
-    public override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return indexPathsInRect(rect).map { (indexPath) -> UICollectionViewLayoutAttributes in
-            return self.layoutAttributesForItemAtIndexPath(indexPath)! // TODO: Fix forcefull unwrap
+    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        return indexPathsInRect(rect: rect).map { (indexPath) -> UICollectionViewLayoutAttributes in
+            return self.layoutAttributesForItem(at: indexPath)! // TODO: Fix forcefull unwrap
         }
     }
 
     /**
      See UICollectionViewLayout documentation
      */
-    public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        let itemIndex = flatIndex(indexPath) // index among total number of items
+    public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let itemIndex = flatIndex(indexPath: indexPath) // index among total number of items
         let rowIndex = itemIndex % itemsPerRow // index within it's row
         let row = itemIndex / itemsPerRow // which row for that item
 
@@ -110,7 +109,7 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
         let width = _itemSize.width
         let height = _itemSize.height
 
-        let attribute = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+        let attribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attribute.frame = CGRect(x: x, y: y, width: width, height: height)
 
         return attribute
@@ -119,7 +118,7 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
     /**
      See UICollectionViewLayout documentation
      */
-    public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+    public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
 
@@ -127,11 +126,16 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
     /**
     See UICollectionViewLayout documentation
     */
-    public override func layoutAttributesForDecorationViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? { return nil }
+    public override func layoutAttributesForDecorationView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return nil
+    }
+
     /**
      See UICollectionViewLayout documentation
      */
-    public override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? { return nil }
+    public override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return nil
+    }
 }
 
 extension GridCollectionViewLayout {
@@ -140,20 +144,20 @@ extension GridCollectionViewLayout {
      - parameter rect: The rect which we want index paths for
      - returns: An array of indexPaths for that rect
      */
-    func indexPathsInRect(rect: CGRect) -> [NSIndexPath] {
+    func indexPathsInRect(rect: CGRect) -> [IndexPath] {
         // Make sure we have items/rows
         guard items > 0 && rows > 0 else { return [] }
         
         let rowHeight = estimatedRowHeight()
         
-        let startRow = GridCollectionViewLayout.firstRowInRect(rect, withRowHeight: rowHeight)
-        let endRow = GridCollectionViewLayout.lastRowInRect(rect, withRowHeight: rowHeight, max: rows)
+        let startRow = GridCollectionViewLayout.firstRowInRect(rect: rect, withRowHeight: rowHeight)
+        let endRow = GridCollectionViewLayout.lastRowInRect(rect: rect, withRowHeight: rowHeight, max: rows)
 
-        let startIndex = GridCollectionViewLayout.firstIndexInRow(startRow, withItemsPerRow: itemsPerRow)
-        let endIndex = GridCollectionViewLayout.lastIndexInRow(endRow, withItemsPerRow: itemsPerRow, numberOfItems: items)
+        let startIndex = GridCollectionViewLayout.firstIndexInRow(row: startRow, withItemsPerRow: itemsPerRow)
+        let endIndex = GridCollectionViewLayout.lastIndexInRow(row: endRow, withItemsPerRow: itemsPerRow, numberOfItems: items)
         
         guard startIndex <= endIndex else { return [] }
-        let indexPaths = (startIndex...endIndex).map { indexPathFromFlatIndex($0) }
+        let indexPaths = (startIndex...endIndex).map { indexPathFromFlatIndex(index: $0) }
 
         return indexPaths
     }
@@ -221,12 +225,12 @@ extension GridCollectionViewLayout {
      - parameter indexPath: The index path we want to flatten
      - returns: A flat index
      */
-    func flatIndex(indexPath: NSIndexPath) -> Int {
+    func flatIndex(indexPath: IndexPath) -> Int {
         guard let collectionView = collectionView else {
             return 0
         }
         
-        return (0..<indexPath.section).reduce(indexPath.row) { $0 + collectionView.numberOfItemsInSection($1)}
+        return (0..<indexPath.section).reduce(indexPath.row) { $0 + collectionView.numberOfItems(inSection: $1)}
     }
 
     /**
@@ -234,20 +238,20 @@ extension GridCollectionViewLayout {
      - parameter index: The flat index
      - returns: An index path
      */
-    func indexPathFromFlatIndex(index: Int) -> NSIndexPath {
+    func indexPathFromFlatIndex(index: Int) -> IndexPath {
         guard let collectionView = collectionView else {
-            return NSIndexPath(forItem: 0, inSection: 0)
+            return IndexPath(item: 0, section: 0)
         }
 
         var item = index
         var section = 0
 
-        while(item >= collectionView.numberOfItemsInSection(section)) {
-            item -= collectionView.numberOfItemsInSection(section)
+        while(item >= collectionView.numberOfItems(inSection: section)) {
+            item -= collectionView.numberOfItems(inSection: section)
             section += 1
         }
 
-        return NSIndexPath(forItem: item, inSection: section)
+        return IndexPath(item: item, section: section)
     }
 
     /**
@@ -256,7 +260,7 @@ extension GridCollectionViewLayout {
      */
     func estimatedItemSize() -> CGSize {
         guard let collectionView = collectionView else {
-            return CGSizeZero
+            return .zero
         }
 
         let itemWidth = (collectionView.bounds.width - CGFloat(itemsPerRow - 1) * itemSpacing) / CGFloat(itemsPerRow)
@@ -272,7 +276,7 @@ extension GridCollectionViewLayout {
             return 0
         }
         
-        return (0..<collectionView.numberOfSections()).reduce(0, combine: {$0 + collectionView.numberOfItemsInSection($1)})
+        return (0..<collectionView.numberOfSections).reduce(0, {$0 + collectionView.numberOfItems(inSection: $1)})
     }
 
     /**

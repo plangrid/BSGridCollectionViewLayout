@@ -27,32 +27,32 @@ import XCTest
 class FirstRowTests: XCTestCase {
     
     func testFirstRowInZeroRect() {
-        let firstRow = GridCollectionViewLayout.firstRowInRect(CGRectZero, withRowHeight: 100.0)
+        let firstRow = GridCollectionViewLayout.firstRowInRect(rect: .zero, withRowHeight: 100.0)
         XCTAssertEqual(firstRow, 0)
     }
     
     func testFirstRowWithoutOffset() {
-        let firstRow = GridCollectionViewLayout.firstRowInRect(CGRect(x: 0, y: 0, width: 100, height: 300), withRowHeight: 100.0)
+        let firstRow = GridCollectionViewLayout.firstRowInRect(rect: CGRect(x: 0, y: 0, width: 100, height: 300), withRowHeight: 100.0)
         XCTAssertEqual(firstRow, 0)
     }
     
     func testFirstRowWith1RowOffset() {
-        let firstRow = GridCollectionViewLayout.firstRowInRect(CGRect(x: 0, y: 100, width: 100, height: 300), withRowHeight: 100.0)
+        let firstRow = GridCollectionViewLayout.firstRowInRect(rect: CGRect(x: 0, y: 100, width: 100, height: 300), withRowHeight: 100.0)
         XCTAssertEqual(firstRow, 1)
     }
     
     func testFirstRowWithHalfRowOffset() {
-        let firstRow = GridCollectionViewLayout.firstRowInRect(CGRect(x: 0, y: 50, width: 100, height: 300), withRowHeight: 100.0)
+        let firstRow = GridCollectionViewLayout.firstRowInRect(rect: CGRect(x: 0, y: 50, width: 100, height: 300), withRowHeight: 100.0)
         XCTAssertEqual(firstRow, 0)
     }
     
     func testFirstRowWith2RowOffset() {
-        let firstRow = GridCollectionViewLayout.firstRowInRect(CGRect(x: 0, y: 200, width: 100, height: 300), withRowHeight: 100.0)
+        let firstRow = GridCollectionViewLayout.firstRowInRect(rect: CGRect(x: 0, y: 200, width: 100, height: 300), withRowHeight: 100.0)
         XCTAssertEqual(firstRow, 2)
     }
     
     func testFirstRowWithNegativeRectOffset() {
-        let firstRow = GridCollectionViewLayout.firstRowInRect(CGRect(x: 0, y: -200, width: 100, height: 300), withRowHeight: 100.0)
+        let firstRow = GridCollectionViewLayout.firstRowInRect(rect: CGRect(x: 0, y: -200, width: 100, height: 300), withRowHeight: 100.0)
         XCTAssertEqual(firstRow, 0)
     }
 }
