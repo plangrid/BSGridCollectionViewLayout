@@ -25,32 +25,32 @@ import XCTest
 
 class LastIndexTests: XCTestCase {
     func testLastIndexFirstRowLowNumberOfItems() {
-        let index = GridCollectionViewLayout.lastIndexInRow(0, withItemsPerRow: 3, numberOfItems: 2)
+        let index = GridCollectionViewLayout.lastIndexInRow(row: 0, withItemsPerRow: 3, numberOfItems: 2)
         XCTAssertEqual(index, 1)
     }
     
     func testLastIndexFirstRowMediumNumberOfItems() {
-        let index = GridCollectionViewLayout.lastIndexInRow(0, withItemsPerRow: 3, numberOfItems: 6)
+        let index = GridCollectionViewLayout.lastIndexInRow(row: 0, withItemsPerRow: 3, numberOfItems: 6)
         XCTAssertEqual(index, 2)
     }
     
     func testLastIndexFirstRowLargeNumberOfItems() {
-        let index = GridCollectionViewLayout.lastIndexInRow(0, withItemsPerRow: 3, numberOfItems: 500)
+        let index = GridCollectionViewLayout.lastIndexInRow(row: 0, withItemsPerRow: 3, numberOfItems: 500)
         XCTAssertEqual(index, 2)
     }
     
     func testLastIndexThirdRowLowNumberOfItems() {
-        let index = GridCollectionViewLayout.lastIndexInRow(2, withItemsPerRow: 3, numberOfItems: 7)
+        let index = GridCollectionViewLayout.lastIndexInRow(row: 2, withItemsPerRow: 3, numberOfItems: 7)
         XCTAssertEqual(index, 6)
     }
     
     func testLastIndexThirdRowMediumNumberOfItems() {
-        let index = GridCollectionViewLayout.lastIndexInRow(2, withItemsPerRow: 3, numberOfItems: 8)
+        let index = GridCollectionViewLayout.lastIndexInRow(row: 2, withItemsPerRow: 3, numberOfItems: 8)
         XCTAssertEqual(index, 7)
     }
     
     func testLastIndexThirdRowLargeNumberOfItems() {
-        let index = GridCollectionViewLayout.lastIndexInRow(2, withItemsPerRow: 3, numberOfItems: 500)
+        let index = GridCollectionViewLayout.lastIndexInRow(row: 2, withItemsPerRow: 3, numberOfItems: 500)
         XCTAssertEqual(index, 8)
     }
 }

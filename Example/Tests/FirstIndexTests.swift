@@ -25,12 +25,12 @@ import XCTest
 
 class FirstIndexTests: XCTestCase {
     func testFirstIndexFirstRow() {
-        let index = GridCollectionViewLayout.firstIndexInRow(0, withItemsPerRow: 3)
+        let index = GridCollectionViewLayout.firstIndexInRow(row: 0, withItemsPerRow: 3)
         XCTAssertEqual(index, 0)
     }
     
     func testFirstIndexThirdRow() {
-        let index = GridCollectionViewLayout.firstIndexInRow(3, withItemsPerRow: 3)
+        let index = GridCollectionViewLayout.firstIndexInRow(row: 3, withItemsPerRow: 3)
         XCTAssertEqual(index, 9)
     }
 }

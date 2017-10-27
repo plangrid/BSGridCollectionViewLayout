@@ -27,8 +27,8 @@ class ViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView?.backgroundColor = UIColor.whiteColor()
-        
+        collectionView?.backgroundColor = .white
+
         let layout = GridCollectionViewLayout()
         layout.itemsPerRow = 3
         layout.itemSpacing = 2
@@ -36,15 +36,15 @@ class ViewController: UICollectionViewController {
         
         collectionView?.collectionViewLayout = layout
         
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     // MARK: Data source
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 11
         } else {
@@ -52,12 +52,12 @@ class ViewController: UICollectionViewController {
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if indexPath.section == 0 {
-            cell.backgroundColor = UIColor.blueColor()
+            cell.backgroundColor = .blue
         } else {
-            cell.backgroundColor = UIColor.redColor()
+            cell.backgroundColor = .red
         }
         
         return cell

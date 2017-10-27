@@ -26,61 +26,61 @@ import XCTest
 class LastRowTests: XCTestCase {
     
     func testLastRowInZeroRect() {
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRectZero, withRowHeight: 100, max: 3)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: .zero, withRowHeight: 100, max: 3)
         XCTAssertEqual(lastRow, 0)
     }
     
     func testLastRowWithoutOffsetSmallMax() {
         let max = 2
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 0, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 0, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 1)
     }
     
     func testLastRowWithoutOffsetMediumMax() {
         let max = 3
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 0, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 0, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 2)
     }
     
     func testLastRowWithoutOffsetLargeMax() {
         let max = 8
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 0, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 0, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 2)
     }
     
     func testLastRowWith1RowOffsetSmallMax() {
         let max = 2
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 100, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 100, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 1)
     }
     
     func testLastRowWith1RowOffsetMediumMax() {
         let max = 3
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 100, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 100, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 2)
     }
     
     func testLastRowWith1RowOffsetLargeMax() {
         let max = 8
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 100, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 100, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 3)
     }
     
     func testLastRowWithHalfRowOffsetSmallMax() {
         let max = 2
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 50, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 50, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 1)
     }
     
     func testLastRowWithHalfRowOffsetMediumMax() {
         let max = 3
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 50, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 50, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 2)
     }
     
     func testLastRowWithHalfRowOffsetLargeMax() {
         let max = 8
-        let lastRow = GridCollectionViewLayout.lastRowInRect(CGRect(x: 0, y: 50, width: 100, height: 300), withRowHeight: 100, max: max)
+        let lastRow = GridCollectionViewLayout.lastRowInRect(rect: CGRect(x: 0, y: 50, width: 100, height: 300), withRowHeight: 100, max: max)
         XCTAssertEqual(lastRow, 3)
     }
 }
